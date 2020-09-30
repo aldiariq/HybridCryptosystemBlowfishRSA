@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hybridblowfishrsa.R;
+import com.example.hybridblowfishrsa.algoritma.blowfish.Blowfish;
 import com.example.hybridblowfishrsa.utils.FileUtils;
 
 /**
@@ -89,6 +90,14 @@ public class DekripsiFragment extends Fragment {
                 String passwordenkripsiblowfish = etpasswordblowfishdekripsi.getText().toString();
                 String kunciprivatersa = etkunciprivatersadekripsi.getText().toString();
                 String kuncipublikrsa = etkuncipublikrsadekripsi.getText().toString();
+
+                String fileinputenkripsi = tvlokasiinputfiledekripsi.getText().toString();
+                String filehasilinputenkripsi = tvlokasiinputfiledekripsi.getText().toString().replaceAll(".enc", "");
+
+                Blowfish enkripsi = new Blowfish(passwordenkripsiblowfish);
+                enkripsi.decrypt(fileinputenkripsi, filehasilinputenkripsi);
+
+                tvfilehasildekripsidekripsi.setText(filehasilinputenkripsi);
 
 
             }

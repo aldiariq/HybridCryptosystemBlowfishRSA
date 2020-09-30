@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.hybridblowfishrsa.algoritma.blowfish.Blowfish;
 import com.example.hybridblowfishrsa.utils.FileUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,8 +88,15 @@ public class EnkripsiFragment extends Fragment {
         btnenkripsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String lokasifileinput = tvlokasiinputfile.getText().toString();
                 String passwordblowfish = etpasswordblowfish.getText().toString();
+
+                String fileinputenkripsi = tvlokasiinputfile.getText().toString();
+                String filehasilinputenkripsi = tvlokasiinputfile.getText().toString() + ".enc";
+
+                Blowfish enkripsi = new Blowfish(passwordblowfish);
+                enkripsi.encrypt(fileinputenkripsi, filehasilinputenkripsi);
+
+                tvlokasifileenkripsi.setText(filehasilinputenkripsi);
 
 
             }
