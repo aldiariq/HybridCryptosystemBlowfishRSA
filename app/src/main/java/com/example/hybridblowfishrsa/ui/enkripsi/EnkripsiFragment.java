@@ -80,14 +80,16 @@ public class EnkripsiFragment extends Fragment {
         imgpilihfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askPermissionAndBrowseFile();
+                deteksiPermissionandroid();
             }
         });
 
         btnenkripsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String lokasifileinput = tvlokasiinputfile.getText().toString();
                 String passwordblowfish = etpasswordblowfish.getText().toString();
+
 
             }
         });
@@ -106,7 +108,7 @@ public class EnkripsiFragment extends Fragment {
         tvlokasifileenkripsi = (TextView) view.findViewById(R.id.txtlokasifileenkripsi);
     }
 
-    private void askPermissionAndBrowseFile()  {
+    private void deteksiPermissionandroid()  {
         // With Android Level >= 23, you have to ask the user
         // for permission to access External Storage.
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) { // Level 23
@@ -124,12 +126,12 @@ public class EnkripsiFragment extends Fragment {
                 return;
             }
         }
-        this.doBrowseFile();
+        this.pilihFile();
     }
 
-    private void doBrowseFile()  {
+    private void pilihFile()  {
         Intent chooseFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        chooseFileIntent.setType("*/*");
+        chooseFileIntent.setType("application/*");
         // Only return URIs that can be opened with ContentResolver
         chooseFileIntent.addCategory(Intent.CATEGORY_OPENABLE);
 
@@ -137,7 +139,6 @@ public class EnkripsiFragment extends Fragment {
         startActivityForResult(chooseFileIntent, MY_RESULT_CODE_FILECHOOSER);
     }
 
-    // When you have the request results
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -153,7 +154,7 @@ public class EnkripsiFragment extends Fragment {
                     Log.i( LOG_TAG,"Permission granted!");
                     Toast.makeText(this.getContext(), "Permission granted!", Toast.LENGTH_SHORT).show();
 
-                    this.doBrowseFile();
+                    this.pilihFile();
                 }
                 // Cancelled or denied.
                 else {
